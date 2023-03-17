@@ -8,7 +8,7 @@ class SimpleCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        width: 100,
+        height: 100,
         color: Colors.green,
       ),
     );
@@ -25,23 +25,26 @@ class Screen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              double width = constraints.constrainWidth();
-              return width < 500
-                  ? ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [..._data.map((item) => item)],
-                    )
-                  : ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [..._data.map((item) => item)],
-                    );
-            },
-          )),
-        ],
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            double width = constraints.constrainWidth();
+            return width < 500
+                ? ListView.builder(
+                    itemCount: _data.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => SizedBox(
+                      width: 100,
+                      child: _data[index],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: _data.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => _data[index],
+                  );
+          },
+        ),
       ),
     );
   }

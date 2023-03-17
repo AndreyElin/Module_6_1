@@ -6,7 +6,7 @@ class Screen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return SizedBox(
             height: 50,
@@ -14,7 +14,8 @@ class Screen1 extends StatelessWidget {
               child: Text('$index'),
             ),
           );
-        },
+        }, separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: 25,
       ),
     );
   }
